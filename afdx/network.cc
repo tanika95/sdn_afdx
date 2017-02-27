@@ -4,11 +4,11 @@
 
 using namespace std;
 
-vector<int> Host::incomingVlIds() {
+vector<uint32_t> Host::incomingVlIds() {
 	return in_vl_ids;
 }
 
-vector<int> Host::outcomingVlIds() {
+vector<uint32_t> Host::outcomingVlIds() {
 	return out_vl_ids;
 }
 
@@ -34,8 +34,8 @@ void Host::die() {
 	alive = false;
 }
 
-Network::Network(const VLSet &vls, const std::vector<Host> &hsts)
-	: vls(vls) , hosts(hsts)
+Network::Network(const VLSet &vls, const std::vector<Host> &hsts, uint32_t amount)
+	: vls(vls), hosts(hsts), switches_amount(amount)
 {}
 
 void Network::addVL(const VL &vl) {
@@ -45,7 +45,7 @@ void Network::addVL(const VL &vl) {
 }
 
 void Network::addVLs(const vector<VL> &vls) {
-	for(int i = 0; i < vls.size(); i++) {
+	for(uint32_t i = 0; i < vls.size(); i++) {
 		addVL(vls[i]);
 	}
 }
@@ -53,16 +53,21 @@ void Network::addVLs(const vector<VL> &vls) {
 void Network::removeVL(const VL &vl) {
 	hosts[vl.sender()].removeOutcoming(vl);
 	hosts[vl.receiver()].removeIncoming(vl);
+	vls.remove(vl.id());
 }
 void Network::removeVLs(const std::vector<VL> &vls) {
-	for(int i = 0; i < vls.size(); i++) {
+	for(uint32_t i = 0; i < vls.size(); i++) {
 		removeVL(vls[i]);
 	}
 }
-void Network::removeHost(int id) {
+void Network::removeHost(uint32_t id) {
 	hosts[id].die();
 }
 
-Host Network::host(int id) {
+Host Network::host(uint32_t id) {
 	return hosts[id];
+}
+
+uint32_t Network::switchesAmount() {
+	return switches_amount;
 }

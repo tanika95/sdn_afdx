@@ -1,14 +1,25 @@
+#include <stdint.h>
+#include <iostream>
+
 class Switch {
-	int id; // возможно лишнее поле
-	int jitter;
 public:
-	int jswitch();
+	Switch(double jitt, uint32_t id);
+
+	double jswitch() const;
+	uint32_t id() const;
+private:
+	double jitter;
+	uint32_t sw_id;
 };
 
 class SLA {
-	int max_packet_length;
-	int bandwidth_allocation_gap;
 public:
-	int bag();
-	int lmax();
+	SLA(double bag, double lmax);
+	SLA();
+
+	double bag();
+	double lmax();
+private:
+	double bandwidth_allocation_gap;
+	double max_packet_length;
 };
