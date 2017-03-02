@@ -71,7 +71,7 @@ void VL::metermod(enum ofp_meter_mod_command cmd, const Switch &swtch) const {
 	struct ofl_msg_meter_mod msg;
 	msg.header.type = OFPT_METER_MOD;
 	msg.command = cmd;
-	msg.flags = OFPMF_PKTPS || OFPMF_BURST;
+	msg.flags = OFPMF_PKTPS | OFPMF_BURST;
 	msg.meter_id = vl_id;
 	msg.meter_bands_num = 1;
 	msg.bands = (struct ofl_meter_band_header **)
