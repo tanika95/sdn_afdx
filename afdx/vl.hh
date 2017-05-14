@@ -12,7 +12,8 @@ using namespace vigil::container;
 
 class VL {
 public:
-	VL(uint32_t vl_id, uint32_t s_id, uint32_t r_id, SLA prms, std::vector<Switch> swts, Component *c);
+	VL(uint32_t vl_id, uint32_t s_id, uint32_t r_id, SLA prms,
+		std::vector<Switch> swts, Component *c);
 	VL();
 
 	void add() const;
