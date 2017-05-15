@@ -94,7 +94,7 @@ host_triplet = @host@
 @NDEBUG_FALSE@am__append_3 = -D_GLIBCXX_CONCEPT_CHECKS=1 \
 @NDEBUG_FALSE@	-D_GLIBCXX_DEBUG=1 -D_GLIBCXX_DEBUG_PEDANTIC=1
 @NDEBUG_FALSE@am__append_4 = -export-dynamic
-subdir = src/nox/coreapps/afdx
+subdir = src/nox/coreapps/netcontrol
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/acinclude.m4 \
 	$(top_srcdir)/configure.ac
@@ -134,17 +134,19 @@ am__uninstall_files_from_dir = { \
   }
 am__installdirs = "$(DESTDIR)$(pkglibdir)"
 LTLIBRARIES = $(pkglib_LTLIBRARIES)
-afdx_la_LIBADD =
-am_afdx_la_OBJECTS = afdx_la-afdx.lo afdx_la-vl.lo afdx_la-network.lo \
-	afdx_la-parametrs.lo
-afdx_la_OBJECTS = $(am_afdx_la_OBJECTS)
+netcontrol_la_LIBADD =
+am_netcontrol_la_OBJECTS = netcontrol_la-netcontrol.lo \
+	netcontrol_la-vl.lo netcontrol_la-network.lo \
+	netcontrol_la-parametrs.lo
+netcontrol_la_OBJECTS = $(am_netcontrol_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
 am__v_lt_0 = --silent
 am__v_lt_1 = 
-afdx_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
-	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(AM_CXXFLAGS) \
-	$(CXXFLAGS) $(afdx_la_LDFLAGS) $(LDFLAGS) -o $@
+netcontrol_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
+	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link $(CXXLD) \
+	$(AM_CXXFLAGS) $(CXXFLAGS) $(netcontrol_la_LDFLAGS) $(LDFLAGS) \
+	-o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -197,8 +199,8 @@ AM_V_CCLD = $(am__v_CCLD_@AM_V@)
 am__v_CCLD_ = $(am__v_CCLD_@AM_DEFAULT_V@)
 am__v_CCLD_0 = @echo "  CCLD    " $@;
 am__v_CCLD_1 = 
-SOURCES = $(afdx_la_SOURCES)
-DIST_SOURCES = $(afdx_la_SOURCES)
+SOURCES = $(netcontrol_la_SOURCES)
+DIST_SOURCES = $(netcontrol_la_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -410,15 +412,15 @@ EXTRA_DIST = \
 	meta.json
 
 pkglib_LTLIBRARIES = \
-	afdx.la
+	netcontrol.la
 
-afdx_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(top_srcdir)/src/nox
-afdx_la_SOURCES = afdx.cc \
+netcontrol_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(top_srcdir)/src/nox
+netcontrol_la_SOURCES = netcontrol.cc \
 			vl.cc vl.hh \
 			network.cc network.hh \
 			parametrs.cc parametrs.hh
 
-afdx_la_LDFLAGS = -module -export-dynamic
+netcontrol_la_LDFLAGS = -module -export-dynamic
 NOX_RUNTIMEFILES = meta.json
 all: all-am
 
@@ -433,9 +435,9 @@ $(srcdir)/Makefile.in:  $(srcdir)/Makefile.am $(srcdir)/../../../Make.vars $(am_
 	      exit 1;; \
 	  esac; \
 	done; \
-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu src/nox/coreapps/afdx/Makefile'; \
+	echo ' cd $(top_srcdir) && $(AUTOMAKE) --gnu src/nox/coreapps/netcontrol/Makefile'; \
 	$(am__cd) $(top_srcdir) && \
-	  $(AUTOMAKE) --gnu src/nox/coreapps/afdx/Makefile
+	  $(AUTOMAKE) --gnu src/nox/coreapps/netcontrol/Makefile
 Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	@case '$?' in \
 	  *config.status*) \
@@ -490,8 +492,8 @@ clean-pkglibLTLIBRARIES:
 	  rm -f $${locs}; \
 	}
 
-afdx.la: $(afdx_la_OBJECTS) $(afdx_la_DEPENDENCIES) $(EXTRA_afdx_la_DEPENDENCIES) 
-	$(AM_V_CXXLD)$(afdx_la_LINK) -rpath $(pkglibdir) $(afdx_la_OBJECTS) $(afdx_la_LIBADD) $(LIBS)
+netcontrol.la: $(netcontrol_la_OBJECTS) $(netcontrol_la_DEPENDENCIES) $(EXTRA_netcontrol_la_DEPENDENCIES) 
+	$(AM_V_CXXLD)$(netcontrol_la_LINK) -rpath $(pkglibdir) $(netcontrol_la_OBJECTS) $(netcontrol_la_LIBADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -499,10 +501,10 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/afdx_la-afdx.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/afdx_la-network.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/afdx_la-parametrs.Plo@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/afdx_la-vl.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/netcontrol_la-netcontrol.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/netcontrol_la-network.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/netcontrol_la-parametrs.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/netcontrol_la-vl.Plo@am__quote@
 
 .cc.o:
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -525,33 +527,33 @@ distclean-compile:
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LTCXXCOMPILE) -c -o $@ $<
 
-afdx_la-afdx.lo: afdx.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(afdx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT afdx_la-afdx.lo -MD -MP -MF $(DEPDIR)/afdx_la-afdx.Tpo -c -o afdx_la-afdx.lo `test -f 'afdx.cc' || echo '$(srcdir)/'`afdx.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/afdx_la-afdx.Tpo $(DEPDIR)/afdx_la-afdx.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='afdx.cc' object='afdx_la-afdx.lo' libtool=yes @AMDEPBACKSLASH@
+netcontrol_la-netcontrol.lo: netcontrol.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(netcontrol_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT netcontrol_la-netcontrol.lo -MD -MP -MF $(DEPDIR)/netcontrol_la-netcontrol.Tpo -c -o netcontrol_la-netcontrol.lo `test -f 'netcontrol.cc' || echo '$(srcdir)/'`netcontrol.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/netcontrol_la-netcontrol.Tpo $(DEPDIR)/netcontrol_la-netcontrol.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='netcontrol.cc' object='netcontrol_la-netcontrol.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(afdx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o afdx_la-afdx.lo `test -f 'afdx.cc' || echo '$(srcdir)/'`afdx.cc
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(netcontrol_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o netcontrol_la-netcontrol.lo `test -f 'netcontrol.cc' || echo '$(srcdir)/'`netcontrol.cc
 
-afdx_la-vl.lo: vl.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(afdx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT afdx_la-vl.lo -MD -MP -MF $(DEPDIR)/afdx_la-vl.Tpo -c -o afdx_la-vl.lo `test -f 'vl.cc' || echo '$(srcdir)/'`vl.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/afdx_la-vl.Tpo $(DEPDIR)/afdx_la-vl.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='vl.cc' object='afdx_la-vl.lo' libtool=yes @AMDEPBACKSLASH@
+netcontrol_la-vl.lo: vl.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(netcontrol_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT netcontrol_la-vl.lo -MD -MP -MF $(DEPDIR)/netcontrol_la-vl.Tpo -c -o netcontrol_la-vl.lo `test -f 'vl.cc' || echo '$(srcdir)/'`vl.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/netcontrol_la-vl.Tpo $(DEPDIR)/netcontrol_la-vl.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='vl.cc' object='netcontrol_la-vl.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(afdx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o afdx_la-vl.lo `test -f 'vl.cc' || echo '$(srcdir)/'`vl.cc
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(netcontrol_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o netcontrol_la-vl.lo `test -f 'vl.cc' || echo '$(srcdir)/'`vl.cc
 
-afdx_la-network.lo: network.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(afdx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT afdx_la-network.lo -MD -MP -MF $(DEPDIR)/afdx_la-network.Tpo -c -o afdx_la-network.lo `test -f 'network.cc' || echo '$(srcdir)/'`network.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/afdx_la-network.Tpo $(DEPDIR)/afdx_la-network.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='network.cc' object='afdx_la-network.lo' libtool=yes @AMDEPBACKSLASH@
+netcontrol_la-network.lo: network.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(netcontrol_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT netcontrol_la-network.lo -MD -MP -MF $(DEPDIR)/netcontrol_la-network.Tpo -c -o netcontrol_la-network.lo `test -f 'network.cc' || echo '$(srcdir)/'`network.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/netcontrol_la-network.Tpo $(DEPDIR)/netcontrol_la-network.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='network.cc' object='netcontrol_la-network.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(afdx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o afdx_la-network.lo `test -f 'network.cc' || echo '$(srcdir)/'`network.cc
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(netcontrol_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o netcontrol_la-network.lo `test -f 'network.cc' || echo '$(srcdir)/'`network.cc
 
-afdx_la-parametrs.lo: parametrs.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(afdx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT afdx_la-parametrs.lo -MD -MP -MF $(DEPDIR)/afdx_la-parametrs.Tpo -c -o afdx_la-parametrs.lo `test -f 'parametrs.cc' || echo '$(srcdir)/'`parametrs.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/afdx_la-parametrs.Tpo $(DEPDIR)/afdx_la-parametrs.Plo
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='parametrs.cc' object='afdx_la-parametrs.lo' libtool=yes @AMDEPBACKSLASH@
+netcontrol_la-parametrs.lo: parametrs.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(netcontrol_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -MT netcontrol_la-parametrs.lo -MD -MP -MF $(DEPDIR)/netcontrol_la-parametrs.Tpo -c -o netcontrol_la-parametrs.lo `test -f 'parametrs.cc' || echo '$(srcdir)/'`parametrs.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) $(DEPDIR)/netcontrol_la-parametrs.Tpo $(DEPDIR)/netcontrol_la-parametrs.Plo
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='parametrs.cc' object='netcontrol_la-parametrs.lo' libtool=yes @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(afdx_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o afdx_la-parametrs.lo `test -f 'parametrs.cc' || echo '$(srcdir)/'`parametrs.cc
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(netcontrol_la_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS) -c -o netcontrol_la-parametrs.lo `test -f 'parametrs.cc' || echo '$(srcdir)/'`parametrs.cc
 
 mostlyclean-libtool:
 	-rm -f *.lo

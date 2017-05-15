@@ -17,7 +17,8 @@ VL::VL(uint32_t v_id, uint32_t s_id, uint32_t r_id, SLA prms,
 VL::VL()
 {}
 
-void VL::add() const {
+void VL::add() const
+{
 	for(uint32_t i = 0; i < switches.size(); i++) {
 		cout << "LOG: Adding vl to switch " << switches[i].id()<<endl;
 		metermod(OFPMC_ADD, switches[i]);
@@ -25,7 +26,8 @@ void VL::add() const {
 	}
 }
 
-void VL::remove() const {
+void VL::remove() const
+{
 	for(uint32_t i = 0; i < switches.size(); i++) {
 		cout << "LOG: Deleting vl from switch " << switches[i].id()<<endl;
 		flowmod(OFPFC_DELETE, switches[i]);
@@ -33,23 +35,28 @@ void VL::remove() const {
 	}
 }
 
-SLA VL::sla() const {
+SLA VL::sla() const
+{
 	return params;
 }
 
-uint32_t VL::id() const {
+uint32_t VL::id() const
+{
 	return vl_id;
 }
 
-uint32_t VL::sender() const {
+uint32_t VL::sender() const
+{
 	return sender_id;
 }
 
-uint32_t VL::receiver() const {
+uint32_t VL::receiver() const
+{
 	return receiver_id;
 }
 
-void VL::flowmod(enum ofp_flow_mod_command cmd, const Switch &swtch) const {
+void VL::flowmod(enum ofp_flow_mod_command cmd, const Switch &swtch) const
+{
 	Flow f;
 	f.Add_Field("in_port", swtch.in());
 	f.Add_Field("vlan_id", vl_id);
@@ -68,7 +75,8 @@ void VL::flowmod(enum ofp_flow_mod_command cmd, const Switch &swtch) const {
 	std::cout << "LOG: DONE"<<std::endl;
 }
 
-void VL::metermod(enum ofp_meter_mod_command cmd, const Switch &swtch) const {
+void VL::metermod(enum ofp_meter_mod_command cmd, const Switch &swtch) const
+{
 	struct ofl_meter_band_header band;
 	band.type = OFPMBT_DROP;
 	band.rate = sla().lmax() / sla().bag();
@@ -77,7 +85,7 @@ void VL::metermod(enum ofp_meter_mod_command cmd, const Switch &swtch) const {
 	struct ofl_msg_meter_mod msg;
 	msg.header.type = OFPT_METER_MOD;
 	msg.command = cmd;
-	msg.flags = OFPMF_PKTPS | OFPMF_BURST;
+	msg.flags = OFPMF_PKTPS || OFPMF_BURST;
 	msg.meter_id = vl_id;
 	msg.meter_bands_num = 1;
 	msg.bands = (struct ofl_meter_band_header **)
@@ -91,16 +99,19 @@ void VL::metermod(enum ofp_meter_mod_command cmd, const Switch &swtch) const {
 	std::cout << "LOG: DONE"<<std::endl;
 }
 
-void VLSet::add(const VL &vl) {
+void VLSet::add(const VL &vl)
+{
 	vl.add();
 	vls[vl.id()] = vl;
 }
 
-void VLSet::remove(uint32_t id) {
+void VLSet::remove(uint32_t id)
+{
 	vls[id].remove();
 	vls.erase(id);
 }
 
-VL VLSet::vl(uint32_t id) {
+VL VLSet::vl(uint32_t id)
+{
 	return vls[id];
 }

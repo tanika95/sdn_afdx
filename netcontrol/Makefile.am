@@ -6,14 +6,14 @@ EXTRA_DIST =\
 	meta.json
 
 pkglib_LTLIBRARIES =		\
-	afdx.la
+	netcontrol.la
 
-afdx_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(top_srcdir)/src/nox
-afdx_la_SOURCES =       afdx.cc \
+netcontrol_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(top_srcdir)/src/nox
+netcontrol_la_SOURCES =       netcontrol.cc \
 			vl.cc vl.hh \
 			network.cc network.hh \
 			parametrs.cc parametrs.hh
-afdx_la_LDFLAGS = -module -export-dynamic
+netcontrol_la_LDFLAGS = -module -export-dynamic
 
 NOX_RUNTIMEFILES = meta.json
 
