@@ -1,4 +1,3 @@
-#include <map>
 #include <vector>
 
 #include "parametrs.hh"
@@ -32,13 +31,4 @@ private:
 
 	void flowmod(enum ofp_flow_mod_command cmd, const Switch &swtch) const;
 	void metermod(enum ofp_meter_mod_command cmd, const Switch &swtch) const;
-};
-
-class VLSet {
-public:
-	void add(const VL &vl);
-	void remove(uint32_t id);
-	VL vl(uint32_t id);
-private:
-	std::map<uint32_t, VL> vls;
 };

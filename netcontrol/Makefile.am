@@ -11,10 +11,12 @@ pkglib_LTLIBRARIES =		\
 netcontrol_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(top_srcdir)/src/nox
 netcontrol_la_SOURCES =       netcontrol.cc \
 			vl.cc vl.hh \
+			vlset.cc vlset.hh \
 			network.cc network.hh \
 			parametrs.cc parametrs.hh \
 			algorithm.cc algorithm.hh \
-			topology.cc topology.hh
+			topology.cc topology.hh \
+			host.cc host.hh
 
 netcontrol_la_LDFLAGS = -module -export-dynamic
 

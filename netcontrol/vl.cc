@@ -98,20 +98,3 @@ void VL::metermod(enum ofp_meter_mod_command cmd, const Switch &swtch) const
 		(struct ofl_msg_header *)&msg, 0, true);
 	std::cout << "LOG: DONE"<<std::endl;
 }
-
-void VLSet::add(const VL &vl)
-{
-	vl.add();
-	vls[vl.id()] = vl;
-}
-
-void VLSet::remove(uint32_t id)
-{
-	vls[id].remove();
-	vls.erase(id);
-}
-
-VL VLSet::vl(uint32_t id)
-{
-	return vls[id];
-}
