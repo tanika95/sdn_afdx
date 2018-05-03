@@ -12,7 +12,10 @@ netcontrol_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(top_srcdir)/src/nox
 netcontrol_la_SOURCES =       netcontrol.cc \
 			vl.cc vl.hh \
 			network.cc network.hh \
-			parametrs.cc parametrs.hh
+			parametrs.cc parametrs.hh \
+			algorithm.cc algorithm.hh \
+			topology.cc topology.hh
+
 netcontrol_la_LDFLAGS = -module -export-dynamic
 
 NOX_RUNTIMEFILES = meta.json

@@ -82,10 +82,33 @@ public:
                 if (switches_num != network.switchesAmount()) {
                         return CONTINUE;
                 }
-                // Все коммутаторы подключились - можно прокладывать ВК
                 scenario();
                 return STOP;
         }
+	reload()
+	{
+		VlSet vls;
+		try {
+			vls = Algotithm.run();
+		catch (const exception &e) {
+			// log algorithm failed
+			return;
+		}
+		apply(vls);
+	}
+
+	breakComm()
+	{
+		map.breakComm();
+		reload();
+	}
+
+	breakLink()
+	{
+		map.breakLink();
+		reload();
+	}
+
 };
 
 REGISTER_COMPONENT(container::Simple_component_factory<netcontrol>, netcontrol);
