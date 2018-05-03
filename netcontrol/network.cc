@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Network::Network(const VLSet &vls, const std::vector<Host> &hsts, uint32_t amount)
+Network::Network(const VLSet &vls, const std::vector<Host> &hsts)
 	: vls(vls), hosts(hsts), switches_amount(amount)
 {}
 
@@ -60,5 +60,5 @@ Host Network::host(uint32_t id)
 
 uint32_t Network::switchesAmount()
 {
-	return switches_amount;
+	return hosts.size();
 }

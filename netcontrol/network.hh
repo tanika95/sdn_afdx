@@ -4,7 +4,7 @@
 
 class Network {
 public:
-	Network(const VLSet &vls, const std::vector<Host> &hsts, uint32_t amount);
+	Network(const VLSet &vls, const std::vector<Host> &hsts);
 
 	void addVL(const VL &vl);
 	void addVLs(const std::vector<VL> &vls);
@@ -18,5 +18,4 @@ public:
 private:
 	VLSet vls;
 	std::vector<Host> hosts;
-	uint32_t switches_amount;
 };
