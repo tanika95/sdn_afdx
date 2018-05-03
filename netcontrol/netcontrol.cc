@@ -36,7 +36,7 @@ class netcontrol : public Component {
 		try {
 			vls = Algotithm.run();
 		catch (const exception &e) {
-			// log algorithm failed
+			std::cout << "LOG: New VL's configuration can't be created" << std::endl;
 			return;
 		}
 	        std::cout << "LOG: New VL's configuration created" << std::endl;
