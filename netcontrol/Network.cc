@@ -1,6 +1,7 @@
-#include "network.hh"
+#include "Network.hh"
 
 #include <algorithm>
+#include "Settings.hh"
 
 using namespace vigil;
 using namespace std;

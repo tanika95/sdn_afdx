@@ -1,5 +1,4 @@
-#include "settings.hh"
-#include "netinet++/datapathid.hh"
+#include "Settings.hh"
 
 Settings::Settings(uint32_t id, ofl_msg_flow_mod flow, ofl_msg_meter_mod meter,
 	ofp_flow_mod_command cmd)

@@ -1,12 +1,10 @@
 #pragma once
 
 #include <vector>
-
-#include "parametrs.hh"
-#include "settings.hh"
-
 #include "../../../oflib/ofl-structs.h"
-
+#include "Settings.hh"
+#include "Sla.hh"
+#include "Switch.hh"
 
 class VL {
 public:

@@ -1,9 +1,11 @@
-#include <netcontrol.hh>
-
+#include <Netcontrol.hh>
 
 #include <boost/bind.hpp>
 #include <unistd.h>
 #include "datapath-join.hh"
+#include "Host.hh"
+#include "Vl.hh"
+#include "Vlset.hh"
 
 using namespace vigil;
 using namespace vigil::container;

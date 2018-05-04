@@ -1,5 +1,6 @@
 #pragma once
 
+#include "netinet++/datapathid.hh"
 #include "../../../oflib/ofl-structs.h"
 
 class Settings

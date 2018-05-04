@@ -1,8 +1,10 @@
 #pragma once
 
 #include <vector>
-#include "vlset.hh"
 #include "component.hh"
+#include "Host.hh"
+#include "Vlset.hh"
+#include "Vl.hh"
 
 using namespace vigil;
 using namespace vigil::container;
