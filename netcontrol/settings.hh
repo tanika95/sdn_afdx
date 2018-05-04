@@ -6,7 +6,7 @@ public:
 	Settings(uint32_t id, ofl_msg_flow_mod flow, ofl_msg_meter_mod meter,
 		ofp_flow_mod_command cmd);
 
-	uint32_t id();
+	datapathid id();
 	struct ofl_msg_header* firstMessage();
 	struct ofl_msg_header* secondMessage();
 private:

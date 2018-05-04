@@ -7,7 +7,7 @@ Settings::Settings(uint32_t id, ofl_msg_flow_mod flow, ofl_msg_meter_mod meter,
 {
 }
 
-uint32_t Settings::id()
+datapathid Settings::id()
 {
 	return datapathid().from_host(swtch_id);
 }
