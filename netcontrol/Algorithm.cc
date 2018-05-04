@@ -1,4 +1,4 @@
-#include "algorithm.hh"
+#include "Algorithm.hh"
 
 VlSet Algorithm::run()
 {

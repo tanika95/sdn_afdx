@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include "vl.hh"
+#include "VL.hh"
 
 class Host {
 	bool alive;
