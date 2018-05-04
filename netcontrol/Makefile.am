@@ -14,6 +14,7 @@ netcontrol_la_SOURCES =       netcontrol.cc \
 			vlset.cc vlset.hh \
 			network.cc network.hh \
 			parametrs.cc parametrs.hh \
+			settings.cc settings.hh \
 			algorithm.cc algorithm.hh \
 			topology.cc topology.hh \
 			host.cc host.hh

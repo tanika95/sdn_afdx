@@ -3,13 +3,11 @@
 
 void VLSet::add(const VL &vl)
 {
-	vl.add();
 	vls[vl.id()] = vl;
 }
 
 void VLSet::remove(uint32_t id)
 {
-	vls[id].remove();
 	vls.erase(id);
 }
 

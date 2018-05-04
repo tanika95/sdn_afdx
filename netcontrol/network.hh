@@ -1,10 +1,14 @@
 #include <vector>
 #include "vlset.hh"
+#include "component.hh"
+
+using namespace vigil;
+using namespace vigil::container;
 
 
 class Network {
 public:
-	Network(const VLSet &vls, const std::vector<Host> &hsts);
+	Network(const VLSet &vls, const std::vector<Host> &hsts, Component *c);
 
 	void addVL(const VL &vl);
 	void addVLs(const std::vector<VL> &vls);
@@ -18,4 +22,7 @@ public:
 private:
 	VLSet vls;
 	std::vector<Host> hosts;
+	Component *app;
+
+	void setRules(const std::vector<Settings> &settings);
 };

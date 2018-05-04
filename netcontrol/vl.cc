@@ -3,37 +3,45 @@
 #include "openflow-default.hh"
 #include <unistd.h>
 #include "flowmod.hh"
-#include "netinet++/datapathid.hh"
 
 using namespace vigil;
 using namespace std;
 
 VL::VL(uint32_t v_id, uint32_t s_id, uint32_t r_id, SLA prms,
-	std::vector<Switch> swts, Component *c)
-	: vl_id(v_id), sender_id(s_id), receiver_id(r_id),
-	params(prms), switches (swts), app(c)
+	std::vector<Switch> swts)
+		: vl_id(v_id), sender_id(s_id), receiver_id(r_id),
+		params(prms), switches(swts)
 {}
 
 VL::VL()
 {}
 
-void VL::add() const
+vector<Settings> VL::settings(enum ofp_flow_mod_command cmd, const vector<Switch> &swtchs) const
 {
-	for(uint32_t i = 0; i < switches.size(); i++) {
-		cout << "LOG: Adding vl to switch " << switches[i].id()<<endl;
-		metermod(OFPMC_ADD, switches[i]);
-		flowmod(OFPFC_ADD, switches[i]);
+	vector<Settings> settings;
+	for(uint32_t i = 0; i < swtchs.size(); i++) {
+		settings.push_back(
+			Settings(
+				flowmod(cmd, swtchs[i]),
+				metermod(cmd swtchs[i]),
+				cmd
+			)
+		);
 	}
+	return settings;
 }
 
-void VL::remove() const
+
+vector<Settings> VL::addSettings() const
 {
-	for(uint32_t i = 0; i < switches.size(); i++) {
-		cout << "LOG: Deleting vl from switch " << switches[i].id()<<endl;
-		flowmod(OFPFC_DELETE, switches[i]);
-		metermod(OFPMC_DELETE, switches[i]);
-	}
+	settings(OFPMC_ADD, switches);
 }
+
+vector<Settings> VL::removeSettings() const
+{
+	settings(OFPMC_DELETE, switches);
+}
+
 
 SLA VL::sla() const
 {
@@ -55,7 +63,7 @@ uint32_t VL::receiver() const
 	return receiver_id;
 }
 
-void VL::flowmod(enum ofp_flow_mod_command cmd, const Switch &swtch) const
+ofl_msg_flow_mod VL::flowmod(enum ofp_flow_mod_command cmd, const Switch &swtch) const
 {
 	Flow f;
 	f.Add_Field("in_port", swtch.in());
@@ -69,13 +77,10 @@ void VL::flowmod(enum ofp_flow_mod_command cmd, const Switch &swtch) const
 	mod->AddMatch(&f.match);
 	mod->AddInstructions(inst);
 
-	std::cout << "LOG: VL id " << vl_id <<std::endl;
-	app->send_openflow_msg(datapathid().from_host(swtch.id()),
-		(struct ofl_msg_header *)&mod->fm_msg, 0, true);
-	std::cout << "LOG: DONE"<<std::endl;
+	return mod->fm_msg;
 }
 
-void VL::metermod(enum ofp_meter_mod_command cmd, const Switch &swtch) const
+ofl_msg_meter_mod VL::metermod(enum ofp_meter_mod_command cmd, const Switch &swtch) const
 {
 	struct ofl_meter_band_header band;
 	band.type = OFPMBT_DROP;
@@ -92,9 +97,5 @@ void VL::metermod(enum ofp_meter_mod_command cmd, const Switch &swtch) const
 		malloc(msg.meter_bands_num * sizeof(struct ofl_meter_band_header *));
 	msg.bands[0] = &band;
 
-	std::cout << "LOG: burst_size " << band.burst_size<<std::endl;
-	std::cout << "LOG: rate " << band.rate <<std::endl;
-	app->send_openflow_msg(datapathid().from_host(swtch.id()),
-		(struct ofl_msg_header *)&msg, 0, true);
-	std::cout << "LOG: DONE"<<std::endl;
+	return msg;
 }

@@ -2,17 +2,27 @@
 
 #include <algorithm>
 
+using namespace vigil;
 using namespace std;
 
-Network::Network(const VLSet &vls, const std::vector<Host> &hsts)
-	: vls(vls), hosts(hsts), switches_amount(amount)
+Network::Network(const VLSet &vls, const std::vector<Host> &hsts, Component *c)
+	: vls(vls), hosts(hsts), switches_amount(amount), app(c)
 {}
 
 void Network::addVL(const VL &vl)
 {
 	vls.add(vl);
+	setRules(vl.addSettings());
 	hosts[vl.sender()].addOutcoming(vl);
 	hosts[vl.receiver()].addIncoming(vl);
+}
+
+void Network::setRules(const vector<Settings> &settings)
+{
+	for (uint32_t i = 0; i < settings.size(); i++) {
+		app->send_openflow_msg(settings[i].id(), settings[i].firstMessage(), 0, true);
+		app->send_openflow_msg(settings[i].id(), settings[i].secondMessage(), 0, true);
+	}
 }
 
 void Network::addVLs(const vector<VL> &vlss)
@@ -26,6 +36,7 @@ void Network::removeVL(const VL &vl)
 {
 	hosts[vl.sender()].removeOutcoming(vl);
 	hosts[vl.receiver()].removeIncoming(vl);
+	setRules(vl.removeSettings());
 	vls.remove(vl.id());
 }
 void Network::removeVLs(const std::vector<VL> &vlss)

@@ -18,7 +18,7 @@ class netcontrol : public Component {
                 hosts.push_back(Host());
                 hosts.push_back(Host());
                 hosts.push_back(Host());
-                return Network(Algorithm().initial(), hosts);
+                return Network(Algorithm().initial(), hosts, this);
         }
 
 
