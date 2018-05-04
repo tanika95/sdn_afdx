@@ -1,3 +1,5 @@
+#pragma once
+
 #include "../../../oflib/ofl-structs.h"
 
 class Settings

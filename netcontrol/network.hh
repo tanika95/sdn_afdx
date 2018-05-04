@@ -1,3 +1,5 @@
+#pragma once
+
 #include <vector>
 #include "vlset.hh"
 #include "component.hh"

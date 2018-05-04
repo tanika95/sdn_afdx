@@ -1,5 +1,6 @@
-#include <map>
+#pragma once
 
+#include <map>
 #include "vl.hh"
 
 
