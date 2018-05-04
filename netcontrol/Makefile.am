@@ -9,7 +9,7 @@ pkglib_LTLIBRARIES =		\
 	netcontrol.la
 
 netcontrol_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(top_srcdir)/src/nox
-netcontrol_la_SOURCES =       netcontrol.cc \
+netcontrol_la_SOURCES =       netcontrol.cc netcontrol.hh\
 			vl.cc vl.hh \
 			vlset.cc vlset.hh \
 			network.cc network.hh \
