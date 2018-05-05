@@ -2,6 +2,10 @@
 
 using namespace std;
 
+Algorithm::Algorithm(VLSet vls, Topology topo)
+	: links(vls), map(topo)
+{}
+
 VLSet Algorithm::run()
 {
 	try {

@@ -6,16 +6,15 @@ using namespace vigil;
 using namespace vigil::container;
 using namespace std;
 
-Network::Network(const VLSet &vls, const std::vector<Host> &hsts, Component *c)
-	: vls(vls), hosts(hsts), app(c)
+Network::Network(const VLSet &vls, const Topology &map, Component *c)
+	: vls(vls), topo(map), app(c)
 {}
 
 void Network::addVL(const VL &vl)
 {
 	vls.add(vl);
 	setRules(vl.addSettings());
-	hosts[vl.sender()].addOutcoming(vl);
-	hosts[vl.receiver()].addIncoming(vl);
+	topo.addVlToHost(vl);
 }
 
 void Network::setRules(vector<Settings> settings)
@@ -35,8 +34,7 @@ void Network::addVLs(const vector<VL> &vlss)
 
 void Network::removeVL(const VL &vl)
 {
-	hosts[vl.sender()].removeOutcoming(vl);
-	hosts[vl.receiver()].removeIncoming(vl);
+	topo.removeVlFromHost(vl);
 	setRules(vl.removeSettings());
 	vls.remove(vl.id());
 }
@@ -60,17 +58,27 @@ void Network::changeVLs(const std::vector<VL> &vlss, const std::vector<VL> &vls_
 	}
 }
 
-void Network::removeHost(uint32_t id)
+VLSet Network::vlTable() const
 {
-	hosts[id].die();
+	return vls;
 }
 
-Host Network::host(uint32_t id)
+Topology Network::map() const
 {
-	return hosts[id];
+	return topo;
 }
 
-uint32_t Network::switchesAmount()
+void Network::breakComm()
 {
-	return hosts.size();
+	topo.breakComm();
+}
+
+void Network::breakLink()
+{
+	topo.breakLink();
+}
+
+void Network::breakHost(uint32_t id)
+{
+	topo.breakHost(id);
 }

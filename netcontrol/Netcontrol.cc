@@ -4,7 +4,6 @@
 #include <unistd.h>
 #include "datapath-join.hh"
 #include "Algorithm.hh"
-#include "Host.hh"
 #include "Vl.hh"
 
 using namespace std;
@@ -12,16 +11,14 @@ using namespace vigil;
 using namespace vigil::container;
 
 Netcontrol::Netcontrol(const Context* c, const json_object*)
-        : Component(c), network(init()), switches_num(0)
+        : Component(c), config("netc.xml"), network(init()), switches_num(0)
 {}
 
 Network Netcontrol::init()
 {
-        std::vector<Host> hosts;
-        hosts.push_back(Host());
-        hosts.push_back(Host());
-        hosts.push_back(Host());
-        return Network(Algorithm().initial(), hosts, this);
+        Topology map = config.topology();
+        VLSet vls = Algorithm(config.dataflows(), map).initial();
+        return Network(vls, map, this);
 }
 
 
@@ -38,14 +35,14 @@ void Netcontrol::apply(const VLSet &vls)
 void Netcontrol::breakComm()
 {
 	std::cout << "LOG: Commutator broken" << std::endl;
-	map.breakComm();
+	network.breakComm();
 	reload();
 }
 
 void Netcontrol::breakLink()
 {
 	std::cout << "LOG: Link broken" << std::endl;
-	map.breakLink();
+	network.breakLink();
 	reload();
 }
 
@@ -53,7 +50,7 @@ void Netcontrol::reload()
 {
 	VLSet vls;
 	try {
-		vls = Algorithm().run();
+		vls = Algorithm(network.vlTable(), network.map()).run();
 	} catch (const exception &e) {
 		std::cout << "LOG: New VL's configuration can't be created" << std::endl;
 		return;
@@ -75,7 +72,7 @@ void Netcontrol::install()
 Disposition Netcontrol::handler(const Event& e)
 {
         switches_num++;
-        if (switches_num != network.switchesAmount()) {
+        if (switches_num != network.map().switchesAmount()) {
                 return CONTINUE;
         }
         scenario();

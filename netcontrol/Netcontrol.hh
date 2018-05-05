@@ -3,6 +3,7 @@
 #include <unistd.h>
 #include "component.hh"
 #include "datapath-join.hh"
+#include "Config.hh"
 #include "Network.hh"
 #include "Topology.hh"
 #include "Vlset.hh"
@@ -20,10 +21,9 @@ public:
 	void breakComm();
 	void breakLink();
 private:
+        Config config;
 	Network network;
 	uint32_t switches_num;
-        Topology map;
-
 
 	Network init();
 	void scenario();
