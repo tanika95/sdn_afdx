@@ -9,7 +9,7 @@
 class VL {
 public:
 	VL(uint32_t vl_id, uint32_t s_id, uint32_t r_id, SLA prms,
-		std::vector<Switch> swts);
+		std::vector<Switch> swts = std::vector<Switch>());
 	VL();
 
 	std::vector<Settings> addSettings() const;
