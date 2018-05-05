@@ -12,7 +12,7 @@ VLSet Algorithm::run()
 		const VLSet vls = baseStep();
 		return vls;
 	} catch(const exception &e) {
-		// TODO: log base failed
+		cout << "LOG: Base step has failed" << endl;
 		const VLSet vls = additionalStep();
 		return vls;
 	}
@@ -24,7 +24,7 @@ VLSet Algorithm::initial()
 		const VLSet vls = baseStep();
 		return vls;
 	} catch(const exception &e) {
-		// TODO: log base failed
+		cout << "LOG: Base step has failed" << endl;
 		const VLSet vls = additionalStep();
 		return vls;
 	}
@@ -32,8 +32,10 @@ VLSet Algorithm::initial()
 
 VLSet Algorithm::baseStep()
 {
+	cout << "LOG: Starting base step" << endl;
 }
 
 VLSet Algorithm::additionalStep()
 {
+	cout << "LOG: Starting additional step" << endl;
 }
