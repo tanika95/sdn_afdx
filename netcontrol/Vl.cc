@@ -88,7 +88,7 @@ ofl_msg_meter_mod VL::metermod(bool add, const Switch &swtch) const
 	struct ofl_meter_band_header band;
 	band.type = OFPMBT_DROP;
 	band.rate = sla().lmax() / sla().bag();
-	band.burst_size = sla().lmax() * (1 + (swtch.jswitch() / sla().bag()));
+	band.burst_size = sla().lmax() * (1 + (sla().jswitch() / sla().bag()));
 
 	struct ofl_msg_meter_mod msg;
 	msg.header.type = OFPT_METER_MOD;
