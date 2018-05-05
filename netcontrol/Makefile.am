@@ -18,7 +18,7 @@ netcontrol_la_SOURCES = Algorithm.cc Algorithm.hh \
 			Switch.cc Switch.hh \
 			Topology.cc Topology.hh \
 			Vl.cc Vl.hh \
-			Vlset.cc Vlset.hh \
+			Vlset.cc Vlset.hh
 
 
 netcontrol_la_LDFLAGS = -module -export-dynamic

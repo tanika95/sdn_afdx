@@ -1,13 +1,13 @@
 #include "Network.hh"
 
-#include <algorithm>
 #include "Settings.hh"
 
 using namespace vigil;
+using namespace vigil::container;
 using namespace std;
 
 Network::Network(const VLSet &vls, const std::vector<Host> &hsts, Component *c)
-	: vls(vls), hosts(hsts), switches_amount(amount), app(c)
+	: vls(vls), hosts(hsts), app(c)
 {}
 
 void Network::addVL(const VL &vl)
@@ -18,7 +18,7 @@ void Network::addVL(const VL &vl)
 	hosts[vl.receiver()].addIncoming(vl);
 }
 
-void Network::setRules(const vector<Settings> &settings)
+void Network::setRules(vector<Settings> settings)
 {
 	for (uint32_t i = 0; i < settings.size(); i++) {
 		app->send_openflow_msg(settings[i].id(), settings[i].firstMessage(), 0, true);

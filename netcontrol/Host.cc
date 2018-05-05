@@ -1,4 +1,5 @@
 #include "Host.hh"
+#include <algorithm>
 
 using namespace std;
 

@@ -28,5 +28,5 @@ private:
 	std::vector<Host> hosts;
 	Component *app;
 
-	void setRules(const std::vector<Settings> &settings);
+	void setRules(std::vector<Settings> settings);
 };

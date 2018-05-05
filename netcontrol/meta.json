@@ -1,8 +1,8 @@
 {
     "components": [
         {
-            "name": "Netcontrol" ,
-            "library": "Netcontrol"
+            "name": "netcontrol" ,
+            "library": "netcontrol"
         }
     ]
 }

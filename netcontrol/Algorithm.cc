@@ -1,33 +1,35 @@
 #include "Algorithm.hh"
 
-VlSet Algorithm::run()
+using namespace std;
+
+VLSet Algorithm::run()
 {
 	try {
-		const auto vls = baseStep();
+		const VLSet vls = baseStep();
 		return vls;
 	} catch(const exception &e) {
 		// TODO: log base failed
-		const auto vls = additionalStep();
+		const VLSet vls = additionalStep();
 		return vls;
 	}
 }
 
-VlSet Algorithm::initial()
+VLSet Algorithm::initial()
 {
 	try {
-		const auto vls = baseStep();
+		const VLSet vls = baseStep();
 		return vls;
 	} catch(const exception &e) {
 		// TODO: log base failed
-		const auto vls = additionalStep();
+		const VLSet vls = additionalStep();
 		return vls;
 	}
 }
 
-void Algorithm::baseStep()
+VLSet Algorithm::baseStep()
 {
 }
 
-void Algorithm::additionalStep()
+VLSet Algorithm::additionalStep()
 {
 }

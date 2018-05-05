@@ -1,9 +1,11 @@
 #pragma once
 
-#include <Network.hh>
-
 #include <unistd.h>
+#include "component.hh"
 #include "datapath-join.hh"
+#include "Network.hh"
+#include "Topology.hh"
+#include "Vlset.hh"
 
 using namespace vigil;
 using namespace vigil::container;
@@ -20,11 +22,12 @@ public:
 private:
 	Network network;
 	uint32_t switches_num;
+        Topology map;
 
 
 	Network init();
 	void scenario();
-	void apply();
+	void apply(const VLSet &vls);
 	void reload();
 
 };

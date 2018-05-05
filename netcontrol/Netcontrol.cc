@@ -3,10 +3,11 @@
 #include <boost/bind.hpp>
 #include <unistd.h>
 #include "datapath-join.hh"
+#include "Algorithm.hh"
 #include "Host.hh"
 #include "Vl.hh"
-#include "Vlset.hh"
 
+using namespace std;
 using namespace vigil;
 using namespace vigil::container;
 
@@ -29,7 +30,8 @@ void Netcontrol::scenario()
         std::cout << "LOG: Starting scenario" << std::endl;
 }
 
-void Netcontrol::apply() {
+void Netcontrol::apply(const VLSet &vls)
+{
         std::cout << "LOG: New configuration applied" << std::endl;
 }
 
@@ -49,9 +51,9 @@ void Netcontrol::breakLink()
 
 void Netcontrol::reload()
 {
-	VlSet vls;
+	VLSet vls;
 	try {
-		vls = Algotithm.run();
+		vls = Algorithm().run();
 	} catch (const exception &e) {
 		std::cout << "LOG: New VL's configuration can't be created" << std::endl;
 		return;
@@ -67,7 +69,7 @@ void Netcontrol::configure(const Configuration*)
 void Netcontrol::install()
 {
         register_handler(Datapath_join_event::static_get_name(),
-		boost::bind(&netcontrol::handler, this, _1));
+		boost::bind(&Netcontrol::handler, this, _1));
 }
 
 Disposition Netcontrol::handler(const Event& e)

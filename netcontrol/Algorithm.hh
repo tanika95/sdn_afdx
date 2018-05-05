@@ -1,12 +1,12 @@
 #pragma once
-
+#include "Vlset.hh"
 
 class Algorithm
 {
 public:
-	void run();
-	void initial();
+	VLSet run();
+	VLSet initial();
 private:
-	void baseStep();
-	void additionalStep();
+	VLSet baseStep();
+	VLSet additionalStep();
 };

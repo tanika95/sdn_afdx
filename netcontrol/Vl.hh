@@ -25,8 +25,7 @@ private:
 	SLA params;
 	std::vector<Switch> switches;
 
-	ofl_msg_flow_mod flowmod(enum ofp_flow_mod_command cmd, const Switch &swtch) const;
-	ofl_msg_meter_mod metermod(enum ofp_meter_mod_command cmd, const Switch &swtch) const;
-	std::vector<Settings> settings(enum ofp_flow_mod_command cmd,
-		const std::vector<Switch> &swtchs) const;
+	ofl_msg_flow_mod flowmod(bool add, const Switch &swtch) const;
+	ofl_msg_meter_mod metermod(bool add, const Switch &swtch) const;
+	std::vector<Settings> settings(bool add, const std::vector<Switch> &swtchs) const;
 };

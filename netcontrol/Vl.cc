@@ -16,15 +16,16 @@ VL::VL(uint32_t v_id, uint32_t s_id, uint32_t r_id, SLA prms,
 VL::VL()
 {}
 
-vector<Settings> VL::settings(enum ofp_flow_mod_command cmd, const vector<Switch> &swtchs) const
+vector<Settings> VL::settings(bool add, const vector<Switch> &swtchs) const
 {
 	vector<Settings> settings;
 	for(uint32_t i = 0; i < swtchs.size(); i++) {
 		settings.push_back(
 			Settings(
-				flowmod(cmd, swtchs[i]),
-				metermod(cmd swtchs[i]),
-				cmd
+				swtchs[i].id(),
+				flowmod(add, swtchs[i]),
+				metermod(add, swtchs[i]),
+				add
 			)
 		);
 	}
@@ -34,12 +35,12 @@ vector<Settings> VL::settings(enum ofp_flow_mod_command cmd, const vector<Switch
 
 vector<Settings> VL::addSettings() const
 {
-	settings(OFPMC_ADD, switches);
+	settings(true, switches);
 }
 
 vector<Settings> VL::removeSettings() const
 {
-	settings(OFPMC_DELETE, switches);
+	settings(false, switches);
 }
 
 
@@ -63,8 +64,9 @@ uint32_t VL::receiver() const
 	return receiver_id;
 }
 
-ofl_msg_flow_mod VL::flowmod(enum ofp_flow_mod_command cmd, const Switch &swtch) const
+ofl_msg_flow_mod VL::flowmod(bool add, const Switch &swtch) const
 {
+	ofp_flow_mod_command cmd = add ? OFPFC_ADD : OFPFC_DELETE;
 	Flow f;
 	f.Add_Field("in_port", swtch.in());
 	f.Add_Field("vlan_id", vl_id);
@@ -80,8 +82,9 @@ ofl_msg_flow_mod VL::flowmod(enum ofp_flow_mod_command cmd, const Switch &swtch)
 	return mod->fm_msg;
 }
 
-ofl_msg_meter_mod VL::metermod(enum ofp_meter_mod_command cmd, const Switch &swtch) const
+ofl_msg_meter_mod VL::metermod(bool add, const Switch &swtch) const
 {
+	ofp_meter_mod_command cmd = add ? OFPMC_ADD : OFPMC_DELETE;
 	struct ofl_meter_band_header band;
 	band.type = OFPMBT_DROP;
 	band.rate = sla().lmax() / sla().bag();
