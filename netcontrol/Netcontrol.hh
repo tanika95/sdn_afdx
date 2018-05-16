@@ -6,7 +6,7 @@
 #include "Config.hh"
 #include "Network.hh"
 #include "Topology.hh"
-#include "Vlset.hh"
+#include "Vl.hh"
 
 using namespace vigil;
 using namespace vigil::container;

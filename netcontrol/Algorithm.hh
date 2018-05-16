@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Topology.hh"
-#include "Vlset.hh"
+#include "Vl.hh"
 
 class Algorithm
 {

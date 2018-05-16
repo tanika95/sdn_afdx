@@ -8,11 +8,16 @@ using namespace std;
 
 Network::Network(const VLSet &vls, const Topology &map, Component *c)
 	: vls(vls), topo(map), app(c)
-{}
+{
+	for (uint32_t i = 0; i < vls.size(); i++) {
+		setRules(vls[i].addSettings());
+		topo.addVlToHost(vls[i]);
+	}
+}
 
 void Network::addVL(const VL &vl)
 {
-	vls.add(vl);
+	vls.push_back(vl);
 	setRules(vl.addSettings());
 	topo.addVlToHost(vl);
 }
@@ -36,9 +41,9 @@ void Network::removeVL(const VL &vl)
 {
 	topo.removeVlFromHost(vl);
 	setRules(vl.removeSettings());
-	vls.remove(vl.id());
+	vls.[vl.id())] = VL();
 }
-void Network::removeVLs(const std::vector<VL> &vlss)
+void Network::removeVLs(const VLSet &vlss)
 {
 	for(uint32_t i = 0; i < vlss.size(); i++) {
 		removeVL(vlss[i]);
@@ -47,15 +52,12 @@ void Network::removeVLs(const std::vector<VL> &vlss)
 
 void Network::changeVL(const VL &vl, const VL &vl_new)
 {
-	vls.remove(vl.id());
-	vls.add(vl_new);
+	//TODO:
 }
 
-void Network::changeVLs(const std::vector<VL> &vlss, const std::vector<VL> &vls_new)
+void Network::changeVLs(const VLSet &vlss, const VLSet &vls_new)
 {
-	for(uint32_t i = 0; i < vlss.size(); i++) {
-		changeVL(vls.vl(vlss[i].id()), vlss[i]);
-	}
+	//TODO:
 }
 
 VLSet Network::vlTable() const

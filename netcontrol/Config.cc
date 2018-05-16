@@ -29,7 +29,7 @@ VLSet Config::dataflows()
 		double bag = vl.second.get<uint32_t>("vl.bag");
 		double lmax = vl.second.get<uint32_t>("vl.lmax");
 		double jitt = vl.second.get<uint32_t>("vl.jitter");
-		vls.add(VL(id, sender, reciever, SLA(bag, lmax, jitt)));
+		vls.push_back(VL(id, sender, reciever, SLA(bag, lmax, jitt)));
 	}
 	return vls;
 }

@@ -29,3 +29,5 @@ private:
 	ofl_msg_meter_mod metermod(bool add, const Switch &swtch) const;
 	std::vector<Settings> settings(bool add, const std::vector<Switch> &swtchs) const;
 };
+
+typedef std::vector<VL> VLSet;

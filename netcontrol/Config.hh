@@ -4,7 +4,7 @@
 #include <boost/property_tree/ptree.hpp>
 
 #include "Topology.hh"
-#include "Vlset.hh"
+#include "Vl.hh"
 
 class Config
 {

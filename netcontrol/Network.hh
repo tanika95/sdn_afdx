@@ -3,7 +3,6 @@
 #include <vector>
 #include "component.hh"
 #include "Topology.hh"
-#include "Vlset.hh"
 #include "Vl.hh"
 
 using namespace vigil;
@@ -18,11 +17,11 @@ public:
 	Topology map() const;
 
 	void addVL(const VL &vl);
-	void addVLs(const std::vector<VL> &vls);
+	void addVLs(const VLSet &vls);
 	void removeVL(const VL &vl);
-	void removeVLs(const std::vector<VL> &vls);
+	void removeVLs(const VLSet &vls);
 	void changeVL(const VL &vl, const VL &vl_new);
-	void changeVLs(const std::vector<VL> &vls, const std::vector<VL> &vls_new);
+	void changeVLs(const VLSet &vls, const VLSet&vls_new);
 
 	void breakComm();
 	void breakLink();
