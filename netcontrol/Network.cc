@@ -50,14 +50,17 @@ void Network::removeVLs(const VLSet &vlss)
 	}
 }
 
-void Network::changeVL(const VL &vl, const VL &vl_new)
+void Network::changeVL(const VL &vl)
 {
-	//TODO:
+	setRules(vls[vl.id()].changeSettings(vl));
+	vls[i] = vl;
 }
 
-void Network::changeVLs(const VLSet &vlss, const VLSet &vls_new)
+void Network::changeVLs(const VLSet &vls_new)
 {
-	//TODO:
+	for(uint32_t i = 0; i < vls_new.size(); i++) {
+		changeVL(vls_new[i]);
+	}
 }
 
 VLSet Network::vlTable() const

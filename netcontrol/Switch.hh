@@ -15,3 +15,5 @@ private:
 	uint32_t in_port;
 	uint32_t out_port;
 };
+
+typedef std::vector<Switch> Route;

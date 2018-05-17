@@ -21,7 +21,7 @@ public:
 	void removeVL(const VL &vl);
 	void removeVLs(const VLSet &vls);
 	void changeVL(const VL &vl, const VL &vl_new);
-	void changeVLs(const VLSet &vls, const VLSet&vls_new);
+	void changeVLs(const VLSet &vls_new);
 
 	void breakComm();
 	void breakLink();

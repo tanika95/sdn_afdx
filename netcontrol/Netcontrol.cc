@@ -29,6 +29,7 @@ void Netcontrol::scenario()
 
 void Netcontrol::apply(const VLSet &vls)
 {
+	network.changeVLs(vls);
         std::cout << "LOG: New configuration applied" << std::endl;
 }
 

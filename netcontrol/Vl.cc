@@ -8,7 +8,7 @@ using namespace vigil;
 using namespace std;
 
 VL::VL(uint32_t v_id, uint32_t s_id, uint32_t r_id, SLA prms,
-	std::vector<Switch> swts)
+	Route swts)
 		: vl_id(v_id), sender_id(s_id), receiver_id(r_id),
 		params(prms), switches(swts)
 {}
@@ -16,7 +16,7 @@ VL::VL(uint32_t v_id, uint32_t s_id, uint32_t r_id, SLA prms,
 VL::VL()
 {}
 
-vector<Settings> VL::settings(bool add, const vector<Switch> &swtchs) const
+vector<Settings> VL::settings(bool add, const Route &swtchs) const
 {
 	vector<Settings> settings;
 	for(uint32_t i = 0; i < swtchs.size(); i++) {
@@ -43,10 +43,15 @@ vector<Settings> VL::removeSettings() const
 	settings(false, switches);
 }
 
-
-SLA VL::sla() const
+vector<Settings> VL::changeSettings(const VL &vl) const
 {
-	return params;
+	Rote path = vl.changedPath(switches);
+	settings(false, switches);
+}
+
+Route changedPath(const Route &sw) const
+{
+
 }
 
 uint32_t VL::id() const
@@ -87,8 +92,8 @@ ofl_msg_meter_mod VL::metermod(bool add, const Switch &swtch) const
 	ofp_meter_mod_command cmd = add ? OFPMC_ADD : OFPMC_DELETE;
 	struct ofl_meter_band_header band;
 	band.type = OFPMBT_DROP;
-	band.rate = sla().lmax() / sla().bag();
-	band.burst_size = sla().lmax() * (1 + (sla().jswitch() / sla().bag()));
+	band.rate = params.lmax() / params.bag();
+	band.burst_size = params.lmax() * (1 + (params.jswitch() / params.bag()));
 
 	struct ofl_msg_meter_mod msg;
 	msg.header.type = OFPT_METER_MOD;
