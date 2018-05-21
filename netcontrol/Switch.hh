@@ -2,6 +2,7 @@
 
 #include <stdint.h>
 #include <iostream>
+#include <vector>
 
 class Switch {
 public:

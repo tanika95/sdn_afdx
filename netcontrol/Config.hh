@@ -12,6 +12,7 @@ public:
 	Config(const std::string &file);
 	Topology topology();
 	VLSet dataflows();
+
 private:
 	boost::property_tree::ptree tree;
 };

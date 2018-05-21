@@ -1,6 +1,7 @@
 #include <Netcontrol.hh>
 
 #include <boost/bind.hpp>
+#include <boost/date_time/posix_time/posix_time.hpp>
 #include <unistd.h>
 #include "datapath-join.hh"
 #include "Algorithm.hh"
@@ -11,7 +12,7 @@ using namespace vigil;
 using namespace vigil::container;
 
 Netcontrol::Netcontrol(const Context* c, const json_object*)
-        : Component(c), config("netc.xml"), network(init()), switches_num(0)
+        : Component(c), config("/home/tanyaerm/netc.xml"), network(init()), switches_num(0)
 {}
 
 Network Netcontrol::init()
@@ -24,7 +25,10 @@ Network Netcontrol::init()
 
 void Netcontrol::scenario()
 {
+        network.configure();
+        network.vlTable();
         std::cout << "LOG: Starting scenario" << std::endl;
+        network.breakLink(2, 3);
 }
 
 void Netcontrol::apply(const VLSet &vls)
@@ -33,30 +37,37 @@ void Netcontrol::apply(const VLSet &vls)
         std::cout << "LOG: New configuration applied" << std::endl;
 }
 
-void Netcontrol::breakComm()
+void Netcontrol::breakComm(uint32_t s1)
 {
 	std::cout << "LOG: Commutator broken" << std::endl;
-	network.breakComm();
+	network.breakComm(s1);
 	reload();
 }
 
-void Netcontrol::breakLink()
+void Netcontrol::breakLink(uint32_t s1, uint32_t s2)
 {
 	std::cout << "LOG: Link broken" << std::endl;
-	network.breakLink();
+	network.breakLink(s1, s2);
 	reload();
 }
 
 void Netcontrol::reload()
 {
 	VLSet vls;
+        boost::posix_time::ptime start = boost::posix_time::microsec_clock::local_time();
+
 	try {
-		vls = Algorithm(network.vlTable(), network.map()).run();
+		Algorithm alg = Algorithm(network.vlTable(), network.map());
+                alg.run();
+                network.updateTopo(alg.updateTopo());
 	} catch (const exception &e) {
 		std::cout << "LOG: New VL's configuration can't be created" << std::endl;
 		return;
 	}
 	std::cout << "LOG: New VL's configuration created" << std::endl;
+        boost::posix_time::ptime end = boost::posix_time::microsec_clock::local_time();
+        boost::posix_time::time_duration diff = end - start;
+        std::cout << "LOG: Took ms - " << diff.total_milliseconds() << std::endl;
 	apply(vls);
 }
 

@@ -13,6 +13,12 @@ VL::VL(uint32_t v_id, uint32_t s_id, uint32_t r_id, SLA prms,
 		params(prms), switches(swts)
 {}
 
+VL::VL(const VL &vl, const Route &swts)
+	: vl_id(vl.id()), sender_id(vl.sender()), receiver_id(vl.receiver()),
+	params(vl.sla()), switches(swts)
+{}
+
+
 VL::VL()
 {}
 
@@ -35,23 +41,23 @@ vector<Settings> VL::settings(bool add, const Route &swtchs) const
 
 vector<Settings> VL::addSettings() const
 {
-	settings(true, switches);
+	return settings(true, switches);
 }
 
 vector<Settings> VL::removeSettings() const
 {
-	settings(false, switches);
+	return settings(false, switches);
 }
 
 vector<Settings> VL::changeSettings(const VL &vl) const
 {
-	Rote path = vl.changedPath(switches);
-	settings(false, switches);
+	Route path = vl.changedPath(switches);
+	return settings(false, switches);
 }
 
-Route changedPath(const Route &sw) const
+Route VL::changedPath(const Route &sw) const
 {
-
+	return switches;
 }
 
 uint32_t VL::id() const
@@ -67,6 +73,27 @@ uint32_t VL::sender() const
 uint32_t VL::receiver() const
 {
 	return receiver_id;
+}
+
+SLA VL::sla() const
+{
+	return params;
+}
+
+double VL::bw() const
+{
+	return params.lmax() / params.bag();
+}
+
+void VL::print() const
+{
+	std::cout << vl_id << " " << sender_id << " " << receiver_id<< '\n';
+	std::cout << "Route:" << '\n';
+	for(uint32_t i = 0; i < switches.size(); i++) {
+		cout << switches[i].id() << " "
+			<< switches[i].in() << " " << switches[i].out()<< endl;
+	}
+	std::cout << endl << endl;
 }
 
 ofl_msg_flow_mod VL::flowmod(bool add, const Switch &swtch) const

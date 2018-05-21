@@ -10,15 +10,19 @@ class VL {
 public:
 	VL(uint32_t vl_id, uint32_t s_id, uint32_t r_id, SLA prms,
 		Route swts = Route());
+	VL(const VL &vl, const Route &swts);
 	VL();
 
 	std::vector<Settings> addSettings() const;
 	std::vector<Settings> removeSettings() const;
 	std::vector<Settings> changeSettings(const VL &vl) const;
-	std::pair<Route, Route> changedPath(const Route &sw) const;
+	Route changedPath(const Route &sw) const;
 	uint32_t id() const;
 	uint32_t sender() const;
 	uint32_t receiver() const;
+	SLA sla() const;
+	double bw() const;
+	void print () const;
 private:
 	uint32_t vl_id;
 	uint32_t sender_id;

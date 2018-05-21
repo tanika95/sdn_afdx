@@ -27,3 +27,6 @@ make
 sudo mn --custom /<путь к сценарию>/3triangle.py --topo mytopo --mac --switch user --controller remote
 
 3triangle.py находится в исходниках /testing/topos
+
+В /testing/netc.xml содержится пример докумета, содержащего описание сети и потоков данных
+В Netcontrol::scenario() находится пример сценария для разрыва линка между s1 и s2

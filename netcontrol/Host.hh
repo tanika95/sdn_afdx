@@ -5,6 +5,7 @@
 
 class Host {
 public:
+	Host();
 	std::vector<uint32_t> incomingVlIds();
 	std::vector<uint32_t> outcomingVlIds();
 	void addIncoming(const VL &vl);
@@ -12,6 +13,7 @@ public:
 	void removeIncoming(const VL &vl);
 	void removeOutcoming(const VL &vl);
 	void die();
+
 private:
 	bool alive;
 	std::vector<uint32_t> out_vl_ids;

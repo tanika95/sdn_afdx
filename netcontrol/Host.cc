@@ -3,6 +3,10 @@
 
 using namespace std;
 
+Host::Host()
+	: alive(true)
+{}
+
 vector<uint32_t> Host::incomingVlIds()
 {
 	return in_vl_ids;

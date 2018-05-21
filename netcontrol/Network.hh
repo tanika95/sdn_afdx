@@ -20,12 +20,14 @@ public:
 	void addVLs(const VLSet &vls);
 	void removeVL(const VL &vl);
 	void removeVLs(const VLSet &vls);
-	void changeVL(const VL &vl, const VL &vl_new);
+	void changeVL(const VL &vl);
 	void changeVLs(const VLSet &vls_new);
 
-	void breakComm();
-	void breakLink();
+	void breakComm(uint32_t s1);
+	void breakLink(uint32_t s1, uint32_t s2);
 	void breakHost(uint32_t id);
+	void updateTopo(Topology topo);
+	void configure();
 private:
 	VLSet vls;
 	Topology topo;

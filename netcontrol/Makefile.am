@@ -12,6 +12,7 @@ netcontrol_la_CPPFLAGS = $(AM_CPPFLAGS) -I$(top_srcdir)/src/nox
 netcontrol_la_SOURCES = Algorithm.cc Algorithm.hh \
 			Config.cc Config.hh \
 			Host.cc Host.hh \
+			Link.cc Link.hh \
 			Netcontrol.cc Netcontrol.hh\
 			Network.cc Network.hh \
 			Settings.cc Settings.hh \
