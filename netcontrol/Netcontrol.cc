@@ -18,7 +18,7 @@ Netcontrol::Netcontrol(const Context* c, const json_object*)
 Network Netcontrol::init()
 {
 	Config config("/home/tanyaerm/netc.xml");
-        Topology map = config.topology();
+        map = config.topology();
         VLSet vls = Algorithm(config.dataflows(), map).initial();
         return Network(vls, map, this);
 }
@@ -29,7 +29,6 @@ void Netcontrol::scenario()
         network.configure();
         network.vlTable();
         std::cout << "LOG: Starting scenario" << std::endl;
-        network.breakLink(2, 3);
 }
 
 void Netcontrol::apply(const VLSet &vls)
@@ -84,8 +83,8 @@ void Netcontrol::install()
 
 Disposition Netcontrol::handler(const Event& e)
 {
-        switches_num++;
-        if (switches_num != network.map().switchesAmount()) {
+        switches_online++;
+        if (switches_online != network.map().switchesAmount()) {
                 return CONTINUE;
         }
         scenario();

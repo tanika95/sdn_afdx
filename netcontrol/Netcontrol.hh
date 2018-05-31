@@ -23,7 +23,7 @@ public:
 private:
 	Network network;
 	Topology map;
-	uint32_t switches_num;
+	uint32_t switches_online;
 
 	Network init();
 	void scenario();
