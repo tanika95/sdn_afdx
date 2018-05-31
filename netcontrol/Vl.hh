@@ -22,7 +22,7 @@ public:
 	uint32_t receiver() const;
 	SLA sla() const;
 	double bw() const;
-	void print () const;
+	void show() const;
 private:
 	uint32_t vl_id;
 	uint32_t sender_id;

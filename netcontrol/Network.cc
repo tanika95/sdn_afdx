@@ -71,7 +71,7 @@ void Network::changeVLs(const VLSet &vls_new)
 VLSet Network::vlTable() const
 {
 	for(uint32_t i = 0; i < vls.size(); i++) {
-		vls[i].print();
+		vls[i].show();
 	}
 	return vls;
 }

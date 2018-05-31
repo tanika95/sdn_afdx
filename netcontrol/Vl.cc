@@ -85,15 +85,16 @@ double VL::bw() const
 	return params.lmax() / params.bag();
 }
 
-void VL::print() const
+void VL::show() const
 {
-	std::cout << vl_id << " " << sender_id << " " << receiver_id<< '\n';
-	std::cout << "Route:" << '\n';
+	cout << "Link " << vl_id << endl;
+	cout << "Sender: " << sender_id << " Receiver: " << receiver_id<< '\n';
+	cout << "Route:" << endl;
 	for(uint32_t i = 0; i < switches.size(); i++) {
-		cout << switches[i].id() << " "
-			<< switches[i].in() << " " << switches[i].out()<< endl;
+		cout << "switch " << switches[i].id() << "ports "
+			<< switches[i].in() << ":" << switches[i].out()<< endl;
 	}
-	std::cout << endl << endl;
+	cout << endl << endl;
 }
 
 ofl_msg_flow_mod VL::flowmod(bool add, const Switch &swtch) const
