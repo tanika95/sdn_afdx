@@ -13,6 +13,7 @@ typedef boost::adjacency_list<boost::listS, boost::vecS, boost::directedS,
 	boost::no_property, boost::property<boost::edge_weight_t, double> > Graph;
 typedef boost::graph_traits<Graph>::vertex_descriptor Vertex;
 typedef std::pair<int, int> Edge;
+typedef boost::property_map<Graph, vertex_index_t>::type IndexMap;
 
 class State {
 public:

@@ -69,31 +69,31 @@ VLSet Algorithm::additionalStep()
 
 VL Algorithm::searchPath(const VL &vl, uint32_t from, uint32_t to)
 {
-	Graph g = map.graphForVL(vl);
-	vector<Vertex> p(num_vertices(g), graph_traits<Graph>::null_vertex());
-	Vertex s = vertex(from, g);
-	vector<double> d(num_vertices(g));
+	Graph network = map.graphForVL(vl);
+	vector<Vertex> path(num_vertices(network), graph_traits<Graph>::null_vertex());
+	Vertex start = vertex(from, network);
+	vector<double> distances(num_vertices(network));
 
-	dijkstra_shortest_paths(g, s, predecessor_map(&p[0]).distance_map(&d[0]));
-	typedef property_map<Graph, vertex_index_t>::type IndexMap;
-	IndexMap index = get(vertex_index, g);
+	dijkstra_shortest_paths(network, start,
+		predecessor_map(&path[0]).distance_map(&distance[0]));
+	IndexMap index = get(vertex_index, network);
 
-	Route swtch;
+	Route route;
 	int v = to;
 	if (d[to] == 0) {
 		throw runtime_error("Путь не найден");
 	}
-	while (p[v] != v) {
-		int pred = v;
-		v = p[v];
-		map.decreaseBw(vl.bw(), v, pred);
-		if (p[v] == v) {
+	while (path[v] != v) {
+		int prev = v;
+		v = path[v];
+		map.decreaseBw(vl.bw(), v, prev);
+		if (path[v] == v) {
 			break;
 		}
-		swtch.push_back(Switch(index[v], map.port(index[v], index[p[v]]),
-			map.port(index[v], index[pred])));
+		route.push_back(Switch(index[v], map.port(index[v], index[path[v]]),
+			map.port(index[v], index[prev])));
 	}
-	return VL(vl, swtch);
+	return VL(vl, route);
 }
 
 Topology Algorithm::updateTopo()

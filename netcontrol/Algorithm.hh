@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <boost/property_map/property_map.hpp>
 #include "Topology.hh"
 #include "Vl.hh"
