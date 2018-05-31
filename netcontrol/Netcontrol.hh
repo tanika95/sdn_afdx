@@ -21,7 +21,6 @@ public:
 	void breakComm(uint32_t s1);
 	void breakLink(uint32_t s1, uint32_t s2);
 private:
-        Config config;
 	Network network;
 	Topology map;
 	uint32_t switches_num;

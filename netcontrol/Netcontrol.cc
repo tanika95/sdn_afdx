@@ -12,11 +12,12 @@ using namespace vigil;
 using namespace vigil::container;
 
 Netcontrol::Netcontrol(const Context* c, const json_object*)
-        : Component(c), config("/home/tanyaerm/netc.xml"), network(init()), switches_num(0)
+        : Component(c), network(init()), switches_num(0)
 {}
 
 Network Netcontrol::init()
 {
+	Config config("/home/tanyaerm/netc.xml");
         Topology map = config.topology();
         VLSet vls = Algorithm(config.dataflows(), map).initial();
         return Network(vls, map, this);
