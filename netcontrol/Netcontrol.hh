@@ -23,6 +23,7 @@ public:
 private:
         Config config;
 	Network network;
+	Topology map;
 	uint32_t switches_num;
 
 	Network init();
